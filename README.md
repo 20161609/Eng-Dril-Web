@@ -31,22 +31,5 @@ uvicorn app.main:app --reload --port 8080
 curl http://127.0.0.1:8080/healthz
 ```
 
-## Cloud Run
-
-```bash
-# enable apis once
-gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
-
-# variables
-export REGION=northamerica-northeast1
-export REPO=engdrill-repo
-export IMAGE=engdrill-api:1
-
-gcloud artifacts repositories create $REPO --repository-format=docker --location=$REGION || true
-
-gcloud builds submit --tag "$REGION-docker.pkg.dev/$(gcloud config get-value project)/$REPO/$IMAGE"
-
-gcloud run deploy engdrill-api   --image="$REGION-docker.pkg.dev/$(gcloud config get-value project)/$REPO/$IMAGE"   --region=$REGION --platform=managed   --memory=1Gi --cpu=1 --concurrency=1 --timeout=60   --min-instances=0 --max-instances=2   --allow-unauthenticated
-```
-
-> For production, use Cloud SQL instead of SQLite.
+## How to Deploy
+- Uploaded to github and connected the link with Google Cloud Run.
