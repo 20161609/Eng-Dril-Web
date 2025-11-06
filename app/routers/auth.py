@@ -61,3 +61,9 @@ def login(data: UserLogin, db: Session = Depends(get_db)):
 @router.get("/me", response_model=UserOut)
 def me(current=Depends(get_current_user)):
     return current
+
+@router.delete("/debug/reset_db")
+def reset_db(db: Session = Depends(get_db)):
+    db.query(models.User).delete()
+    db.commit()
+    return {"ok": True, "msg": "All users deleted"}
