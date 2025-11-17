@@ -6,8 +6,7 @@ class Base(DeclarativeBase):
     pass
 
 connect_args = {}
-if settings.DATABASE_URL.startswith("sqlite"):
-    connect_args = {"check_same_thread": False}
+# if settings.DATABASE_URL.startswith("sqlite"): connect_args = {"check_same_thread": False}
 
 database_url = 'sqlite:///./engdrill.db'
 engine = create_engine(database_url, echo=False, connect_args=connect_args)
