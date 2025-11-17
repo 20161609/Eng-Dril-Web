@@ -5,14 +5,16 @@ from app.config import settings
 class Base(DeclarativeBase):
     pass
 
-connect_args = {}
-# if settings.DATABASE_URL.startswith("sqlite"): connect_args = {"check_same_thread": False}
+# Use DATABASE_URL from environment
+database_url = settings.DATABASE_URL
 
-database_url = 'sqlite:///./engdrill.db'
+connect_args = {}
+if database_url.startswith("sqlite"):
+    connect_args = {"check_same_thread": False}
+
 engine = create_engine(database_url, echo=False, connect_args=connect_args)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db():
     from app import models  # noqa: F401
     Base.metadata.create_all(bind=engine)
-    
