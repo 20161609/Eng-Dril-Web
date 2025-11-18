@@ -11,7 +11,6 @@ from app.config import settings
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=UserOut)
-
 def register(data: UserCreate, db: Session = Depends(get_db)):
     exists = db.query(models.User).filter(models.User.email == data.email).first()
     if exists:
@@ -67,3 +66,7 @@ def reset_db(db: Session = Depends(get_db)):
     db.query(models.User).delete()
     db.commit()
     return {"ok": True, "msg": "All users deleted"}
+
+@router.get("/all", response_model=list[UserOut])
+def get_all_users(db: Session = Depends(get_db)):
+    return db.query(models.User).all()
