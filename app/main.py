@@ -28,5 +28,6 @@ def root():
 
 @app.get("/healthz")
 def healthz():
+    return {"What":True}
     return {"ok": True, "app": settings.APP_NAME}
     return {"ok": True, "env": settings.ENV}
