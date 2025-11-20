@@ -28,7 +28,7 @@ cp .env.example .env     # fill values
 uvicorn app.main:app --reload --port 8080
 
 # 3) test
-curl http://127.0.0.1:8080/healthz
+curl http://127.0.0.1:8080/check
 ```
 
 ## How to Deploy

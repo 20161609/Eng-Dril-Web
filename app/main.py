@@ -26,6 +26,6 @@ app.include_router(qe_router.router)
 def root():
     return {"ok": True, "app": settings.APP_NAME, "NUMBER": 2}
 
-@app.get("/healthz")
+@app.get("/check")
 def healthz():
     return {"ok": True, "env": settings.ENV}
